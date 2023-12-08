@@ -11,4 +11,10 @@ public interface MemberMapper {
      * @param member - 회원 도메인
      */
     void insertMember(Member member);
+
+    /**
+     * 회원 수정
+     * @param member - 회원 도메인
+     */
+    void updateMember(Member member);
 }

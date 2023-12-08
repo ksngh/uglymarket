@@ -14,8 +14,16 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
+    //회원 등록
     @PostMapping("create")
     public void memberAdd(MemberReqDTO memberReqDTO) {
         memberService.saveMember(memberReqDTO);
     }
+
+    //회원 수정
+    @PostMapping("update")
+    public void memberModify(MemberReqDTO memberReqDTO) {
+        memberService.modifyMember(memberReqDTO);
+    }
+
 }

@@ -23,4 +23,13 @@ public class MemberService {
         Member member = modelMapper.map(memberReqDTO, Member.class);
         memberMapper.insertMember(member);
     }
+
+    /**
+     * 회원 수정
+     * @param memberReqDTO - 회원 요청 DTO
+     */
+    public void modifyMember(MemberReqDTO memberReqDTO) {
+        Member member = modelMapper.map(memberReqDTO, Member.class);
+        memberMapper.updateMember(member);
+    }
 }

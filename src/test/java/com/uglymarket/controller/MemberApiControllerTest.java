@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -33,4 +32,18 @@ class MemberApiControllerTest {
                 .andReturn();
     }
 
+    @DisplayName("회원 수정")
+    @Test
+    void modifyMemberTest() throws Exception {
+        mockMvc.perform(post("/member/api/update")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("id", "testid1")
+                        .param("password", "updatepw")
+                        .param("name", "updatename")
+                        .param("nickname", "updatenickname")
+                        .param("phone", "updatephone")
+                        .param("address", "updateaddress"))
+                .andExpect(status().isOk())
+                .andReturn();
+    }
 }
