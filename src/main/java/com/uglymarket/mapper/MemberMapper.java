@@ -17,4 +17,11 @@ public interface MemberMapper {
      * @param member - 회원 도메인
      */
     void updateMember(Member member);
+
+    /**
+     * 회원 조회
+     * @param id - 회원아이디
+     * @return - 회원 도메인
+     */
+    Member selectMemberById(String id);
 }

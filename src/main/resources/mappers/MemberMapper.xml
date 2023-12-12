@@ -3,11 +3,15 @@
 <mapper namespace="com.uglymarket.mapper.MemberMapper">
     <insert id="insertMember" parameterType="com.uglymarket.domain.Member">
         insert into member(id, password, nickname, name, phone, address)
-        values(#{id}, #{password}, #{nickname}, #{name}, #{phone}, #{address})
+        values(#{id}, #{password}, #{nickname}, #{name}, #{phone}, #{address});
     </insert>
 
     <update id="updateMember" parameterType="com.uglymarket.domain.Member">
         update member set password = #{password}, nickname = #{nickname}, name = #{name}, phone = #{phone}, address = #{address}
-        where id = #{id}
+        where id = #{id};
     </update>
+
+    <select id="selectMemberById" parameterType="string">
+        select * from member where id = #{id};
+    </select>
 </mapper>
