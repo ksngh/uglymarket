@@ -1,13 +1,13 @@
-package com.uglymarket.controller;
+package com.uglymarket.controller.api;
 
 import com.uglymarket.dto.request.MemberReqDTO;
 import com.uglymarket.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("member/api/")
 public class MemberApiController {

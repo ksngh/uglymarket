@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<form name="createForm">
+    <div>
+        <span>상품명</span>
+        <input type="text" name="title">
+    </div>
+    <div>
+        <span>카테고리</span>
+        <input type="text" name="categoryId">
+    </div>
+    <div>
+        <span>상품가격</span>
+        <input type="text" name="price">
+    </div>
+    <div>
+        <span>상품설명</span>
+        <input type="text" name="content">
+    </div>
+    <div>
+        <button onclick="sendCreateForm()">상품등록</button>
+    </div>
+</form>
+
+<script>
+    function sendCreateForm() {
+        const createForm = document.createForm;
+
+        createForm.action = '/item/api/create';
+        createForm.method = 'post';
+        createForm.submit();
+    }
+</script>
+</body>
+</html>
