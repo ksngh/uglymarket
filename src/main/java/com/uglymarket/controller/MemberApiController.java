@@ -16,8 +16,9 @@ public class MemberApiController {
 
     //회원 등록
     @PostMapping("create")
-    public void memberAdd(MemberReqDTO memberReqDTO) {
+    public String memberAdd(MemberReqDTO memberReqDTO) {
         memberService.saveMember(memberReqDTO);
+        return "redirect:/";
     }
 
     //회원 수정

@@ -8,23 +8,23 @@ create table member (
     address varchar(50),
     create_date timestamp default current_timestamp not null,
     update_date timestamp,
-    del_yn char(1) default 'N',
     primary key(id)
 );
 
 #상품 테이블
 create table item (
-    item_id int auto_increment not null,
+    id int auto_increment not null,
     member_id varchar(50) not null,
     category_id varchar(30),
     title varchar(50),
     price int,
     content varchar(1000),
-    img varchar(600),
-    sale_yn char(1) default 'N',
-    create_date timestamp default current_timestamp,
+    img varchar(200),
+    sale_yn char(1),
+    view_cnt int,
+    create_date timestamp,
     update_date timestamp,
-    primary key(item_id)
+    primary key(id)
 );
 
 #채팅 테이블
