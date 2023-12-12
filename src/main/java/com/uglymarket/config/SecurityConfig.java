@@ -12,7 +12,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class SecurityConfig {
 
-    
     //스프링 필터체인 관리 스프링 빈
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,10 +28,7 @@ public class SecurityConfig {
 
         //해당 URL에 관련된 요청은 모두 허용
         http.authorizeHttpRequests(request -> request
-                .requestMatchers("/member/login",
-                        "/member/create",
-                        "/member/api/create",
-                        "/member/api/update")
+                .requestMatchers("/member/**")
                 .permitAll());
 
         //그 외의 URL에 관련된 요청은 모두 인증 필요
@@ -50,6 +46,5 @@ public class SecurityConfig {
                 .logoutUrl("/member/logout"));
 
         return http.build();
-                
     }
 }

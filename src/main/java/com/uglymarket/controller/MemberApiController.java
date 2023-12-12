@@ -25,5 +25,11 @@ public class MemberApiController {
     public void memberModify(MemberReqDTO memberReqDTO) {
         memberService.modifyMember(memberReqDTO);
     }
+    
+    //회원 삭제
+    @PostMapping("delete")
+    public void memberRemove(String id) {
+        memberService.removeMember(id);
+    }
 
 }

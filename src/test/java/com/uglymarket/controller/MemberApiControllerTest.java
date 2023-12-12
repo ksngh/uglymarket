@@ -46,4 +46,15 @@ class MemberApiControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
     }
+
+    @DisplayName("회원 삭제")
+    @Test
+    void removeMemberTest() throws Exception {
+        mockMvc.perform(post("/member/api/delete")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("id", "testid1"))
+                    .andExpect(status().isOk())
+                    .andReturn();
+    }
+
 }

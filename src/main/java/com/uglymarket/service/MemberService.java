@@ -46,4 +46,12 @@ public class MemberService implements UserDetailsService {
         memberMapper.updateMember(member);
     }
 
+    /**
+     * 회원 삭제
+     * @param id - 회원 아이디
+     */
+    public void removeMember(String id) {
+        memberMapper.deleteMember(id);
+    }
+
 }

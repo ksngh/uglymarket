@@ -19,8 +19,14 @@ public interface MemberMapper {
     void updateMember(Member member);
 
     /**
+     * 회원 삭제
+     * @param id - 회원 아이디
+     */
+    void deleteMember(String id);
+
+    /**
      * 회원 조회
-     * @param id - 회원아이디
+     * @param id - 회원 아이디
      * @return - 회원 도메인
      */
     Member selectMemberById(String id);
