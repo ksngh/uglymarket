@@ -39,6 +39,7 @@
     </div>
     <div>
         <button onclick="updateItem()">상품수정</button>
+        <button onclick="deleteItem()">상품삭제</button>
     </div>
 </div>
 
@@ -47,6 +48,19 @@
 
     function updateItem() {
         location.href = `/item/${id}/update`;
+    }
+
+    function deleteItem() {
+        const formHTML = `
+            <form name="deleteForm" action="/item/api/${id}/delete" method="post">
+                <input type="hidden" name="id" value="${id}"/>
+            </form>`;
+
+        const doc = new DOMParser().parseFromString(formHTML, 'text/html');
+        const form = doc.body.firstChild;
+
+        document.body.append(form);
+        document.deleteForm.submit();
     }
 </script>
 </body>

@@ -44,4 +44,12 @@ public class ItemService {
         Item item = itemMapper.selectItemById(id);
         return modelMapper.map(item, ItemResDTO.class);
     }
+
+    /**
+     * 상품 삭제
+     * @param id - 상품 번호
+     */
+    public void removeItem(Long id) {
+        itemMapper.deleteItem(id);
+    }
 }

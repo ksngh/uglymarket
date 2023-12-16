@@ -41,4 +41,11 @@ class ItemServiceTest {
         System.out.println("itemResDTO = " + itemResDTO);
         Assertions.assertThat(id).isEqualTo(itemResDTO.getId());
     }
+
+    @DisplayName("상품 삭제")
+    @Test
+    void reomveItemTest() {
+        Long id = 7L;
+        itemService.removeItem(id);
+    }
 }

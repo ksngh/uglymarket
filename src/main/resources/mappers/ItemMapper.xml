@@ -12,7 +12,11 @@
 
     <update id="updateItem" parameterType="com.uglymarket.domain.Item">
         update item set category_id = #{categoryId}, title = #{title}, price = #{price}, content = #{content}, img = #{img}, update_date = current_timestamp()
-        where id = #{id}
+        where id = #{id};
     </update>
+
+    <delete id="deleteItem" parameterType="long">
+        delete from item where id = #{id};
+    </delete>
 
 </mapper>

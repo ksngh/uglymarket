@@ -24,4 +24,10 @@ public interface ItemMapper {
      * @return - 상품 도메인
      */
     Item selectItemById(Long id);
+
+    /**
+     * 상품 삭제
+     * @param id - 상품 번호
+     */
+    void deleteItem(Long id);
 }

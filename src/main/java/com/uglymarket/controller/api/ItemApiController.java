@@ -6,6 +6,7 @@ import com.uglymarket.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,4 +35,13 @@ public class ItemApiController {
         itemService.modifyItem(itemReqDTO);
         return "redirect:/";
     }
+
+    /* 상품 삭제 프로세스 */
+    @PostMapping("{id}/delete")
+    public String itemRemove(@PathVariable(name = "id") Long id) {
+        itemService.removeItem(id);
+
+        return "redirect:/";
+    }
+
 }
