@@ -8,12 +8,25 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ItemService {
     
     private final ItemMapper itemMapper;
     private final ModelMapper modelMapper;
+
+    /**
+     * 모든 상품 조회
+     * @return - 상품 응답 DTO 리스트
+     */
+    public List<ItemResDTO> findItems() {
+        List<Item> items = itemMapper.selectItems();
+        return items.stream()
+                .map(item -> modelMapper.map(item, ItemResDTO.class))
+                .toList();
+    }
 
     /**
      * 상품 등록

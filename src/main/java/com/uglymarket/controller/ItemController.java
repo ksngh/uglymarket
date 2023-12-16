@@ -9,12 +9,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("item/")
 public class ItemController {
 
     private final ItemService itemService;
+
+    /* 상품 목록 화면 */
+    @GetMapping("/list")
+    public String itemList(Model model) {
+        List<ItemResDTO> itemResDTOs =itemService.findItems();
+        model.addAttribute("items", itemResDTOs);
+
+        return "item/list";
+    }
 
     /* 상품 등록 화면 */
     @GetMapping("create")
@@ -39,4 +50,6 @@ public class ItemController {
 
         return "item/update";
     }
+
+
 }

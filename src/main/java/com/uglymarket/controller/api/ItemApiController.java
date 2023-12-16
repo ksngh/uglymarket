@@ -24,7 +24,7 @@ public class ItemApiController {
         //회원 아이디 등록
         itemReqDTO.setMemberId(member.getId());
         Long id = itemService.saveItem(itemReqDTO);
-        return "redirect:/";
+        return "redirect:/item/list";
     }
 
     /* 상품 수정 프로세스 */
@@ -33,7 +33,7 @@ public class ItemApiController {
                              @AuthenticationPrincipal Member member,
                              ItemReqDTO itemReqDTO) {
         itemService.modifyItem(itemReqDTO);
-        return "redirect:/";
+        return "redirect:/item/list";
     }
 
     /* 상품 삭제 프로세스 */
@@ -41,7 +41,7 @@ public class ItemApiController {
     public String itemRemove(@PathVariable(name = "id") Long id) {
         itemService.removeItem(id);
 
-        return "redirect:/";
+        return "redirect:/item/list";
     }
 
 }

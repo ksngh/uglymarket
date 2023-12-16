@@ -3,6 +3,8 @@ package com.uglymarket.mapper;
 import com.uglymarket.domain.Item;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface ItemMapper {
 
@@ -30,4 +32,6 @@ public interface ItemMapper {
      * @param id - 상품 번호
      */
     void deleteItem(Long id);
+
+    List<Item> selectItems();
 }

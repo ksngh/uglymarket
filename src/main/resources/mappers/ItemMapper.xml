@@ -19,4 +19,8 @@
         delete from item where id = #{id};
     </delete>
 
+    <select id="selectItems" resultType="com.uglymarket.domain.Item">
+        select * from item;
+    </select>
+
 </mapper>
