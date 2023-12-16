@@ -2,6 +2,7 @@ package com.uglymarket.service;
 
 import com.uglymarket.domain.File;
 import com.uglymarket.dto.request.FileReqDTO;
+import com.uglymarket.dto.response.FileResDTO;
 import com.uglymarket.mapper.FileMapper;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -33,5 +34,17 @@ public class FileService {
         fileMapper.insertFiles(files);
     }
 
+    /**
+     * 파일 리스트 조회
+     * @param itemId - 상품 번호
+     * @return - 파일 응답 DTO 리스트
+     */
+    public List<FileResDTO> findFiles(Long itemId) {
+        List<File> files = fileMapper.selectFiles(itemId);
+
+        return files.stream()
+                .map(file -> modelMapper.map(file, FileResDTO.class))
+                .toList();
+    }
 
 }

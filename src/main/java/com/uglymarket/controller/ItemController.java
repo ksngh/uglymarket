@@ -1,6 +1,8 @@
 package com.uglymarket.controller;
 
+import com.uglymarket.dto.response.FileResDTO;
 import com.uglymarket.dto.response.ItemResDTO;
+import com.uglymarket.service.FileService;
 import com.uglymarket.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
+    private final FileService fileService;
 
     /* 상품 목록 화면 */
     @GetMapping("/list")
@@ -37,7 +40,10 @@ public class ItemController {
     @GetMapping("{id}")
     public String itemDetail(@PathVariable(name = "id") Long id, Model model) {
         ItemResDTO itemResDTO = itemService.findItem(id);
+        List<FileResDTO> fileResDTOs = fileService.findFiles(id);
+
         model.addAttribute("item", itemResDTO);
+        model.addAttribute("files", fileResDTOs);
 
         return "item/detail";
     }

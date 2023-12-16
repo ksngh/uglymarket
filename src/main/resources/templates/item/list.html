@@ -9,6 +9,7 @@
 </head>
 <body>
 <div th:each="item : ${items}" style="border: 1px solid black; cursor: pointer;" th:onclick="itemDetail([[${item.id}]])">
+    <img th:src="@{/image/} + ${item.img}" alt="상품대표이미지" style="width: 80px; height: 80px;">
     <div th:text="${item.title}"></div>
     <div th:text="${item.price}"></div>
 </div>

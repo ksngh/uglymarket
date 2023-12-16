@@ -8,4 +8,8 @@
             (#{file.itemId}, #{file.originalName}, #{file.saveName}, #{file.size}, current_timestamp())
         </foreach>
     </insert>
+
+    <select id="selectFiles" parameterType="long" resultType="com.uglymarket.domain.File">
+        select * from file where item_id = #{itemId}
+    </select>
 </mapper>

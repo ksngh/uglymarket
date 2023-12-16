@@ -10,31 +10,35 @@
 <body>
 <div>
     <div>
-        <span>상품명</span>
+        <span>[상품명]</span>
         <p th:text="${item.title}"></p>
     </div>
     <div>
-        <span>상품가격</span>
+        <span>[상품가격]</span>
         <p th:text="${item.price}"></p>
     </div>
     <div>
-        <span>상품이미지</span>
-        <p th:text="${item.img}"></p>
+        <span>[상품이미지]</span>
+        <div style="display: flex;">
+            <th:block th:each="file : ${files}" >
+                <img th:src="@{/image/} + ${file.saveName}" alt="상품이미지" style="width: 80px; height: 80px;">
+            </th:block>
+        </div>
     </div>
     <div>
-        <span>상품카테고리</span>
+        <span>[상품카테고리]</span>
         <p th:text="${item.categoryId}"></p>
     </div>
     <div>
-        <span>상품설명</span>
+        <span>[상품설명]</span>
         <p th:text="${item.content}"></p>
     </div>
     <div>
-        <span>조회수</span>
+        <span>[조회수]</span>
         <p th:text="${item.viewCnt}"></p>
     </div>
     <div>
-        <span>등록일</span>
+        <span>[등록일]</span>
         <p th:text="${item.createDate}"></p>
     </div>
     <div>

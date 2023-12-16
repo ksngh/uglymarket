@@ -32,17 +32,13 @@ public class ItemApiController {
                           ItemReqDTO itemReqDTO,
                           List<MultipartFile> files) {
 
-        //어떤 회원의 상품인지 구분하기 위해 상품 정보에 회원 아이디 등록
-        itemReqDTO.setMemberId(member.getId());
+        List<FileReqDTO> fileReqDTOs = fileUtils.uploadFiles(files); //파일 요청 DTO 리스트 생성
+        itemReqDTO.setMemberId(member.getId()); //어떤 회원의 상품인지 구분하기 위해 상품 정보에 회원 아이디 등록
 
-        //등록된 상품의 상품 번호
-        Long id = itemService.saveItem(itemReqDTO);
+        itemReqDTO.setImg(fileReqDTOs.get(0).getSaveName()); //상품의 대표이미지 등록
 
-        //파일 요청 DTO 리스트 생성
-        List<FileReqDTO> fileReqDTOs = fileUtils.uploadFiles(files);
-
-        //어떤 상품의 파일인지 구분하기 위해 상품 번호를 등록
-        fileService.saveFiles(id, fileReqDTOs);
+        Long id = itemService.saveItem(itemReqDTO); //등록된 상품의 상품 번호
+        fileService.saveFiles(id, fileReqDTOs); //어떤 상품의 파일인지 구분하기 위해 상품 번호를 등록
 
         return "redirect:/item/list";
     }
