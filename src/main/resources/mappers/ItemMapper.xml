@@ -5,4 +5,14 @@
         insert into item (member_id, category_id, title, price, content, img, sale_yn, view_cnt, create_date, update_date)
         values (#{memberId}, #{categoryId}, #{title}, #{price}, #{content}, #{img}, 'N', 0, current_timestamp(), null);
     </insert>
+
+    <select id="selectItemById" parameterType="long">
+        select * from item where id = #{id};
+    </select>
+
+    <update id="updateItem" parameterType="com.uglymarket.domain.Item">
+        update item set category_id = #{categoryId}, title = #{title}, price = #{price}, content = #{content}, img = #{img}, update_date = current_timestamp()
+        where id = #{id}
+    </update>
+
 </mapper>

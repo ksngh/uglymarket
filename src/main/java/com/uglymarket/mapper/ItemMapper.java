@@ -12,4 +12,16 @@ public interface ItemMapper {
      */
     void insertItem(Item item);
 
+    /**
+     * 상품 수정
+     * @param item - 상품 도메인
+     */
+    void updateItem(Item item);
+
+    /**
+     * 상품 조회
+     * @param id - 상품 번호
+     * @return - 상품 도메인
+     */
+    Item selectItemById(Long id);
 }

@@ -29,7 +29,8 @@ public class SecurityConfig {
         //해당 URL에 관련된 요청은 모두 허용
         http.authorizeHttpRequests(request -> request
                 .requestMatchers("/member/**",
-                        "/item/**")
+                        "/item/**",
+                        "/**")
                 .permitAll());
 
         //그 외의 URL에 관련된 요청은 모두 인증 필요

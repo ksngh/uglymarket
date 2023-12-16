@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<form name="updateForm">
+    <div>
+        <span>아이디</span>
+        <input type="text" name="id">
+    </div>
+    <div>
+        <span>비밀번호</span>
+        <input type="password" name="password">
+    </div>
+    <div>
+        <span>이름</span>
+        <input type="text" name="name">
+    </div>
+    <div>
+        <span>닉네임</span>
+        <input type="text" name="nickname">
+    </div>
+    <div>
+        <span>핸드폰번호</span>
+        <input type="text" name="phone">
+    </div>
+    <div>
+        <span>주소</span>
+        <input type="text" name="address">
+    </div>
+    <div>
+        <button onclick="sendUpdateForm()">회원가입</button>
+    </div>
+</form>
+
+<script>
+    function sendUpdateForm() {
+        const updateForm = document.updateForm;
+
+        updateForm.action = '/item/api/update';
+        updateForm.method = 'post';
+        updateForm.submit();
+    }
+
+</script>
+</body>
+</html>

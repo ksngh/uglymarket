@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div>
+    <div>
+        <span>상품명</span>
+        <p th:text="${item.title}"></p>
+    </div>
+    <div>
+        <span>상품가격</span>
+        <p th:text="${item.price}"></p>
+    </div>
+    <div>
+        <span>상품이미지</span>
+        <p th:text="${item.img}"></p>
+    </div>
+    <div>
+        <span>상품카테고리</span>
+        <p th:text="${item.categoryId}"></p>
+    </div>
+    <div>
+        <span>상품설명</span>
+        <p th:text="${item.content}"></p>
+    </div>
+    <div>
+        <span>조회수</span>
+        <p th:text="${item.viewCnt}"></p>
+    </div>
+    <div>
+        <span>등록일</span>
+        <p th:text="${item.createDate}"></p>
+    </div>
+    <div>
+        <button onclick="updateItem()">상품수정</button>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    const id = [[${item.id}]];
+
+    function updateItem() {
+        location.href = `/item/${id}/update`;
+    }
+</script>
+</body>
+</html>

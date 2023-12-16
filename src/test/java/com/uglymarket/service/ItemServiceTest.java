@@ -1,6 +1,7 @@
 package com.uglymarket.service;
 
 import com.uglymarket.dto.request.ItemReqDTO;
+import com.uglymarket.dto.response.ItemResDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,5 +30,15 @@ class ItemServiceTest {
 
         System.out.println("id = " + id);
         Assertions.assertThat(id).isEqualTo(2L);
+    }
+
+    @DisplayName("상품 조회")
+    @Test
+    void findItemTest() {
+        Long id = 7L;
+        ItemResDTO itemResDTO = itemService.findItem(id);
+
+        System.out.println("itemResDTO = " + itemResDTO);
+        Assertions.assertThat(id).isEqualTo(itemResDTO.getId());
     }
 }
