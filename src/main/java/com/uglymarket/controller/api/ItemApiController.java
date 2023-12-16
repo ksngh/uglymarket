@@ -1,7 +1,10 @@
 package com.uglymarket.controller.api;
 
+import com.uglymarket.common.file.FileUtils;
 import com.uglymarket.domain.Member;
+import com.uglymarket.dto.request.FileReqDTO;
 import com.uglymarket.dto.request.ItemReqDTO;
+import com.uglymarket.service.FileService;
 import com.uglymarket.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -10,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -17,13 +23,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ItemApiController {
 
     private final ItemService itemService;
+    private final FileService fileService;
+    private final FileUtils fileUtils;
 
     /* 상품 등록 프로세스 */
     @PostMapping("create")
-    public String itemAdd(@AuthenticationPrincipal Member member, ItemReqDTO itemReqDTO) {
-        //회원 아이디 등록
+    public String itemAdd(@AuthenticationPrincipal Member member,
+                          ItemReqDTO itemReqDTO,
+                          List<MultipartFile> files) {
+
+        //어떤 회원의 상품인지 구분하기 위해 상품 정보에 회원 아이디 등록
         itemReqDTO.setMemberId(member.getId());
+
+        //등록된 상품의 상품 번호
         Long id = itemService.saveItem(itemReqDTO);
+
+        //파일 요청 DTO 리스트 생성
+        List<FileReqDTO> fileReqDTOs = fileUtils.uploadFiles(files);
+
+        //어떤 상품의 파일인지 구분하기 위해 상품 번호를 등록
+        fileService.saveFiles(id, fileReqDTOs);
+
         return "redirect:/item/list";
     }
 

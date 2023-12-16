@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uglymarket.mapper.FileMapper">
+    <insert id="insertFiles" parameterType="com.uglymarket.domain.File">
+        insert into file (item_id, original_name, save_name, size, create_date)
+        values
+        <foreach item="file" collection="list" separator=",">
+            (#{file.itemId}, #{file.originalName}, #{file.saveName}, #{file.size}, current_timestamp())
+        </foreach>
+    </insert>
+</mapper>
