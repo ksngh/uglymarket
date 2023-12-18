@@ -48,4 +48,14 @@ class ItemServiceTest {
         Long id = 7L;
         itemService.removeItem(id);
     }
+
+    @DisplayName("조회수 증가")
+    @Test
+    void addViewCntTest() {
+        Long itemId = 15L;
+        itemService.addViewCnt(itemId);
+
+        ItemResDTO itemResDTO = itemService.findItem(itemId);
+        System.out.println("itemResDTO.getViewCnt() = " + itemResDTO.getViewCnt());
+    }
 }

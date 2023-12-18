@@ -4,6 +4,9 @@ import com.uglymarket.dto.response.FileResDTO;
 import com.uglymarket.dto.response.ItemResDTO;
 import com.uglymarket.service.FileService;
 import com.uglymarket.service.ItemService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 
 @Controller
@@ -38,7 +42,10 @@ public class ItemController {
 
     /* 상품 조회 화면 */
     @GetMapping("{id}")
-    public String itemDetail(@PathVariable(name = "id") Long id, Model model) {
+    public String itemDetail(HttpServletRequest request,
+                             HttpServletResponse response,
+                             @PathVariable(name = "id") Long id,
+                             Model model) {
         ItemResDTO itemResDTO = itemService.findItem(id);
         List<FileResDTO> fileResDTOs = fileService.findFiles(id);
 

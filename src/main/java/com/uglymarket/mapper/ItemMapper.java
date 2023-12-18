@@ -33,5 +33,15 @@ public interface ItemMapper {
      */
     void deleteItem(Long id);
 
+    /**
+     * 모든 상품 조회
+     * @return - 상품 도메인 리스트
+     */
     List<Item> selectItems();
+
+    /**
+     * 조회수 카운트 등록
+     * @param id - 상품 번호
+     */
+    void updateViewCnt(Long id);
 }

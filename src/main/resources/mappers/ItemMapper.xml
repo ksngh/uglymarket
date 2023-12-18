@@ -23,4 +23,8 @@
         select * from item;
     </select>
 
+    <update id="updateViewCnt" parameterType="long">
+        update item set view_cnt = view_cnt + 1 where id = #{id};
+    </update>
+
 </mapper>

@@ -65,4 +65,12 @@ public class ItemService {
     public void removeItem(Long id) {
         itemMapper.deleteItem(id);
     }
+
+    /**
+     * 조회수 증가
+     * @param id - 상품 번호
+     */
+    public void addViewCnt(Long id) {
+        itemMapper.updateViewCnt(id);
+    }
 }
