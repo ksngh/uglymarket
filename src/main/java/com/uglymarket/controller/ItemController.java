@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.net.http.HttpRequest;
 import java.util.List;
 
 @Controller
@@ -26,7 +25,7 @@ public class ItemController {
     private final FileService fileService;
 
     /* 상품 목록 화면 */
-    @GetMapping("/list")
+    @GetMapping("list")
     public String itemList(Model model) {
         List<ItemResDTO> itemResDTOs =itemService.findItems();
         model.addAttribute("items", itemResDTOs);
@@ -51,6 +50,32 @@ public class ItemController {
 
         model.addAttribute("item", itemResDTO);
         model.addAttribute("files", fileResDTOs);
+
+        //조회수 처리
+        Cookie[] cookies = request.getCookies();
+        int hasVCookie = 0;
+
+        for (Cookie cookie : cookies) {
+            //이미 쿠키가 존재하면
+            if (cookie.getName().equals("v_cookie")) {
+                hasVCookie = 1;
+
+                //이미 조회한 상품이면 패스
+                if (cookie.getValue().contains(id.toString()))
+                    continue;
+
+                cookie.setValue(cookie.getValue() + "_" + id.toString());
+                response.addCookie(cookie);
+                itemService.addViewCnt(id);
+            }
+        }
+
+        //쿠키가 존재하지 않으면 생성
+        if (hasVCookie == 0) {
+            Cookie newCookie = new Cookie("v_cookie", id.toString());
+            response.addCookie(newCookie);
+            itemService.addViewCnt(id);
+        }
 
         return "item/detail";
     }
