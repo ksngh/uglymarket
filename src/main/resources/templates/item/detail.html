@@ -41,10 +41,15 @@
         <span>[등록일]</span>
         <p th:text="${item.createDate}"></p>
     </div>
-    <div>
-        <button onclick="updateItem()">상품수정</button>
-        <button onclick="deleteItem()">상품삭제</button>
-    </div>
+
+    <!-- 인증된 사용자만 활성화 -->
+    <th:block th:if="${#authorization.expr('isAuthenticated()')}">
+        <!-- 본인 상품일 때만 활성화 -->
+        <div th:if="${#authentication.principal.id} == ${item.memberId}">
+            <button onclick="updateItem()">상품수정</button>
+            <button onclick="deleteItem()">상품삭제</button>
+        </div>
+    </th:block>
 </div>
 
 <script th:inline="javascript">
