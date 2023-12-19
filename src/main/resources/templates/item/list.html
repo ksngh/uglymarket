@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div>
+    <th:block th:if="${#authorization.expr('isAuthenticated()')}">
+        <span th:text="${#authentication.principal.name}"></span>님
+        <span>
+            <a href="/member/logout">로그아웃</a>
+        </span>
+        <span>
+            <a href="/item/create">판매하기</a>
+        </span>
+    </th:block>
+
+    <th:block th:if="${#authorization.expr('isAnonymous()')}">
+        <span>
+            <a href="/member/login">로그인/회원가입</a>
+        </span>
+    </th:block>
+</div>
+
+<div style="display: flex;">
+    <div th:each="item : ${items}" style="border: 1px solid black; cursor: pointer;" th:onclick="itemDetail([[${item.id}]])">
+        <img th:src="@{/image/} + ${item.img}" alt="상품대표이미지" style="width: 80px; height: 80px;">
+        <div th:text="${item.title}"></div>
+        <div th:text="${item.price}"></div>
+    </div>
+</div>
+
+
+<script>
+    function itemDetail(id) {
+        location.href = `/item/${id}`;
+    }
+</script>
+</body>
+</html>

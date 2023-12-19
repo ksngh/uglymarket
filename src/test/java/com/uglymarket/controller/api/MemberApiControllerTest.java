@@ -1,4 +1,4 @@
-package com.uglymarket.controller;
+package com.uglymarket.controller.api;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -52,7 +52,7 @@ class MemberApiControllerTest {
     void removeMemberTest() throws Exception {
         mockMvc.perform(post("/member/api/delete")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("id", "testid1"))
+                        .param("id", "testid3"))
                     .andExpect(status().isOk())
                     .andReturn();
     }
