@@ -47,4 +47,11 @@ public class FileService {
                 .toList();
     }
 
+    /**
+     * 파일 삭제
+     * @param id - 파일 번호
+     */
+    public void fileRemove(Long id) {
+        fileMapper.deleteFile(id);
+    }
 }

@@ -12,4 +12,8 @@
     <select id="selectFiles" parameterType="long" resultType="com.uglymarket.domain.File">
         select * from file where item_id = #{itemId}
     </select>
+
+    <delete id="deleteFile" parameterType="long">
+        delete from file where id = #{id}
+    </delete>
 </mapper>

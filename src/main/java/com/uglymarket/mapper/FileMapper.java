@@ -20,4 +20,10 @@ public interface FileMapper {
      * @return - 파일 도메인 리스트
      */
     List<File> selectFiles(Long itemId);
+
+    /**
+     * 파일 삭제
+     * @param id - 파일 번호
+     */
+    void deleteFile(Long id);
 }
