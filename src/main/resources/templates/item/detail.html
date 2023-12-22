@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div>
+    <div>
+        <span>[상품명]</span>
+        <p th:text="${item.title}"></p>
+    </div>
+    <div>
+        <span>[상품가격]</span>
+        <p th:text="${item.price}"></p>
+    </div>
+    <div>
+        <span>[상품이미지]</span>
+        <div style="display: flex;">
+            <th:block th:each="file : ${files}" >
+                <img th:src="@{/image/} + ${file.saveName}" alt="상품이미지" style="width: 80px; height: 80px;">
+            </th:block>
+        </div>
+    </div>
+    <div>
+        <span>[상품카테고리]</span>
+        <p th:text="${item.categoryId}"></p>
+    </div>
+    <div>
+        <span>[상품설명]</span>
+        <p th:text="${item.content}"></p>
+    </div>
+    <div>
+        <span>[조회수]</span>
+        <p th:text="${item.viewCnt}"></p>
+    </div>
+    <div>
+        <span>[등록일]</span>
+        <p th:text="${item.createDate}"></p>
+    </div>
+
+    <!-- 인증된 사용자만 활성화 -->
+    <th:block th:if="${#authorization.expr('isAuthenticated()')}">
+        <!-- 본인 상품일 때만 활성화 -->
+        <div th:if="${#authentication.principal.id} == ${item.memberId}">
+            <button onclick="updateItem()">상품수정</button>
+            <button onclick="deleteItem()">상품삭제</button>
+        </div>
+    </th:block>
+</div>
+
+<script th:inline="javascript">
+    const id = [[${item.id}]];
+
+    function updateItem() {
+        location.href = `/item/${id}/update`;
+    }
+
+    function deleteItem() {
+        const formHTML = `
+            <form name="deleteForm" action="/item/api/${id}/delete" method="post">
+                <input type="hidden" name="id" value="${id}"/>
+            </form>`;
+
+        const doc = new DOMParser().parseFromString(formHTML, 'text/html');
+        const form = doc.body.firstChild;
+
+        document.body.append(form);
+        document.deleteForm.submit();
+    }
+</script>
+</body>
+</html>

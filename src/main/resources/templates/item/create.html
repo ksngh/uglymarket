@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<form name="createForm" enctype="multipart/form-data">
+    <div>
+        <span>상품명</span>
+        <input type="text" name="title">
+    </div>
+    <div>
+        <span>이미지파일</span>
+        <input type="file" id="files" name="files" onchange="viewImage()" multiple>
+
+        <!-- 이미지 미리보기 -->
+        <div class="preview" style="display: flex;"></div>
+    </div>
+
+    <div>
+        <span>카테고리</span>
+        <input type="text" name="categoryId">
+    </div>
+    <div>
+        <span>상품가격</span>
+        <input type="text" name="price">
+    </div>
+    <div>
+        <span>상품설명</span>
+        <input type="text" name="content">
+    </div>
+    <div>
+        <button onclick="sendCreateForm()">상품등록</button>
+    </div>
+</form>
+
+<script>
+    const files = document.getElementById('files');
+    const preview = document.querySelector('.preview');
+    const dataTransfer = new DataTransfer();
+
+    /* 상품등록 폼 전송 */
+    function sendCreateForm() {
+        const createForm = document.createForm;
+
+        createForm.action = '/item/api/create';
+        createForm.method = 'post';
+        createForm.submit();
+    }
+
+    /* 첨부파일 개수 확인 */
+    function chkFileCnt() {
+        const maxCnt = 5;                           //최대 파일 개수
+        let existCnt = dataTransfer.files.length;   //기존 파일 개수
+        let curCnt = files.files.length;            //현재 첨부된 파일 개수
+        let availCnt = maxCnt - existCnt;           //업로드 가능 개수
+
+        if (curCnt > availCnt) {
+            alert(`이미지 파일은 최대 ${maxCnt}까지 업로드 가능합니다.`);
+            files.files = dataTransfer.files;
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /* 첨부파일 이미지 미리보기 */
+    function viewImage() {
+        if (chkFileCnt() === false) return;
+
+        if (files.files.length > 0) {
+            let fileArr = Array.from(files.files);
+            fileArr.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML +=
+                        `<div id="${file.lastModified}" style="position: relative;">
+                            <img src="${e.target.result}" style="width:80px; height: 80px;">
+                            <span onclick="removeFile('${file.lastModified}')"
+                                style="position: absolute; left:60px; top: 3px; color: white;">X</span>
+                        </div>`;
+                }
+                reader.readAsDataURL(file);
+                dataTransfer.items.add(file);
+            })
+            files.files = dataTransfer.files;
+        } else {
+            files.files = dataTransfer.files;
+        }
+    }
+
+    /* 첨부파일 삭제 */
+    function removeFile(lastModified) {
+        for (let i = 0; i < dataTransfer.files.length; i++) {
+            if (dataTransfer.files[i].lastModified == lastModified) {
+                dataTransfer.items.remove(i);
+                break;
+            }
+        }
+        files.files = dataTransfer.files;
+        document.getElementById(lastModified).remove();
+    }
+
+
+</script>
+</body>
+</html>
