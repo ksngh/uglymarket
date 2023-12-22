@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<form name="updateForm">
+    <div>
+        <span>상품명</span>
+        <input th:value="${item.title}" type="text" name="title">
+    </div>
+    <div>
+        <span>카테고리</span>
+        <input th:value="${item.categoryId}" type="text" name="categoryId">
+    </div>
+    <div>
+        <span>상품가격</span>
+        <input th:value="${item.price}" type="text" name="price">
+    </div>
+    <div>
+        <span>상품설명</span>
+        <input th:value="${item.content}" type="text" name="content">
+    </div>
+    <div>
+        <button onclick="sendUpdateForm()">수정하기</button>
+    </div>
+</form>
+
+<script th:inline="javascript">
+    const id = [[${item.id}]];
+
+    function sendUpdateForm() {
+        const updateForm = document.updateForm;
+
+        updateForm.action = `/item/api/${id}/update`;
+        updateForm.method = 'post';
+        updateForm.submit();
+    }
+</script>
+</body>
+</html>
