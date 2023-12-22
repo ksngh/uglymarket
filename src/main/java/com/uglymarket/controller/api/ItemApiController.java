@@ -9,12 +9,14 @@ import com.uglymarket.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,7 +47,26 @@ public class ItemApiController {
     @PostMapping("{id}/update")
     public String itemModify(@PathVariable(name = "id") Long id,
                              @AuthenticationPrincipal Member member,
-                             ItemReqDTO itemReqDTO) {
+                             ItemReqDTO itemReqDTO,
+                             List<MultipartFile> files) {
+
+        //업로드 된 파일이 없을 경우
+        if (Objects.equals(files.get(0).getOriginalFilename(), "")) {
+            itemService.modifyItem(itemReqDTO);
+        } else {
+            List<FileReqDTO> fileReqDTOs = fileUtils.uploadFiles(files); //파일 요청 DTO생성
+            itemReqDTO.setMemberId(member.getId()); //어떤 회원의 상품인지 알 수 있도록 회원아이디 저장
+
+            //대표이미지가 새로 업로드 된 이미지인 경우
+            if (itemReqDTO.getImg().isEmpty()) {
+                itemReqDTO.setImg(fileReqDTOs.get(0).getSaveName());
+            }
+
+            itemService.modifyItem(itemReqDTO);
+            fileService.saveFiles(id, fileReqDTOs);
+        }
+
+
         itemService.modifyItem(itemReqDTO);
         return "redirect:/item/list";
     }

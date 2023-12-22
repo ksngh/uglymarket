@@ -84,7 +84,10 @@ public class ItemController {
     @GetMapping("{id}/update")
     public String itemUpdate(@PathVariable(name = "id") Long id, Model model) {
         ItemResDTO itemResDTO = itemService.findItem(id);
+        List<FileResDTO> fileResDTOs = fileService.findFiles(id);
+
         model.addAttribute("item", itemResDTO);
+        model.addAttribute("files", fileResDTOs);
 
         return "item/update";
     }

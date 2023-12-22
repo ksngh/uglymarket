@@ -9,6 +9,7 @@ import lombok.ToString;
 @ToString
 public class FileResDTO {
 
+    private Long id;
     private Long itemId;
     private String saveName;
 }
