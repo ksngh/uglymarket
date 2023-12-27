@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/f342a733f0.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
@@ -42,6 +43,14 @@
         <p th:text="${item.createDate}"></p>
     </div>
 
+<!--    <div th:if="${#authorization.expr('isAuthenticated()')}">-->
+    <div>
+        <p>
+            <i class="fa-heart" onclick="likeItem()"></i>
+        </p>
+    </div>
+<!--    </div>-->
+
     <!-- 인증된 사용자만 활성화 -->
     <th:block th:if="${#authorization.expr('isAuthenticated()')}">
         <!-- 본인 상품일 때만 활성화 -->
@@ -52,6 +61,7 @@
     </th:block>
 </div>
 
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script th:inline="javascript">
     const id = [[${item.id}]];
 
@@ -70,6 +80,26 @@
 
         document.body.append(form);
         document.deleteForm.submit();
+    }
+
+    /* 좋아요 버튼 클릭 시 */
+    function likeItem() {
+        const memberId = [[${memberId}]];
+        if (memberId != null) {
+            $.ajax({
+                url: '/heart/api/save',
+                method: 'post',
+                data: {
+                    memberId: memberId,
+                    itemId: id
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            })
+        }
+
+
     }
 </script>
 </body>

@@ -1,5 +1,6 @@
 package com.uglymarket.controller;
 
+import com.uglymarket.domain.Member;
 import com.uglymarket.dto.response.FileResDTO;
 import com.uglymarket.dto.response.ItemResDTO;
 import com.uglymarket.service.FileService;
@@ -8,6 +9,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,13 +43,20 @@ public class ItemController {
 
     /* 상품 조회 화면 */
     @GetMapping("{id}")
-    public String itemDetail(HttpServletRequest request,
+    public String itemDetail(@AuthenticationPrincipal Member member,
+                             HttpServletRequest request,
                              HttpServletResponse response,
                              @PathVariable(name = "id") Long id,
                              Model model) {
         ItemResDTO itemResDTO = itemService.findItem(id);
         List<FileResDTO> fileResDTOs = fileService.findFiles(id);
 
+        //로그인 된 회원이면 뷰에 사용자 아이디를 보냄
+        String memberId = null;
+        if (member != null)
+            memberId = member.getId();
+
+        model.addAttribute("memberId", memberId);
         model.addAttribute("item", itemResDTO);
         model.addAttribute("files", fileResDTOs);
 
